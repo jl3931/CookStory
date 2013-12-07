@@ -38,8 +38,10 @@ import android.widget.TextView;
  * this activity will not be hooked in to your main activity as yet. You can
  * easily do so by adding the following lines to your main activity:
  * 
- * Intent intent = new Intent(this, RegisterActivity.class);
- * startActivity(intent);
+ *
+  Intent intent = new Intent(this, RegisterActivity.class);
+  startActivity(intent);
+ 
  * 
  * To make the sample run, you need to set your PROJECT_NUMBER in
  * GCMIntentService.java. If you're going to be running a local version of the
@@ -52,6 +54,7 @@ import android.widget.TextView;
  */
 public class RegisterActivity extends Activity {
 
+	 
   enum State {
     REGISTERED, REGISTERING, UNREGISTERED, UNREGISTERING
   }
