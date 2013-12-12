@@ -6,4 +6,6 @@
     <string name="menu_settings">Settings</string>
 	<string name="app_id">571458986259509</string>
 	<string name="register">Register</string>
+	<string name="settings">Settings</string>
+	<string name="timeline">TimeLine</string>
 </resources>

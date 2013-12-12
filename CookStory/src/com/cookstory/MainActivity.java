@@ -5,9 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.TextView;
 
 import com.facebook.*;
 import com.facebook.model.*;
@@ -16,15 +17,17 @@ public class MainActivity extends FragmentActivity {
   
 	private static final int SPLASH = 0;
 	private static final int SELECTION = 1;
-	private static final int FRAGMENT_COUNT = SELECTION + 1;
+	private static final int SETTINGS = 2;
+	private static final int FRAGMENT_COUNT = SETTINGS + 1;
 	private boolean isResumed = false;
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
+	private MenuItem settings;
 	
 	
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
+    System.out.println("in on create func");
     uiHelper = new UiLifecycleHelper(this, callback);
     uiHelper.onCreate(savedInstanceState);
     
@@ -33,6 +36,8 @@ public class MainActivity extends FragmentActivity {
     FragmentManager fm = getSupportFragmentManager();
     fragments[SPLASH] =fm.findFragmentById(R.id.splashFragment);
     fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
+    fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
+    
     
     FragmentTransaction transaction = fm.beginTransaction();
     
@@ -110,7 +115,7 @@ public class MainActivity extends FragmentActivity {
 	  Session session = Session.getActiveSession();
 	  
 	  if (session !=null && session.isOpened()){
-		  
+		  System.out.println("Showing selection");
 		  showFragment(SELECTION, false);
 	  }
 	  else{
@@ -145,5 +150,31 @@ public class MainActivity extends FragmentActivity {
 	  super.onSaveInstanceState(outState);
 	  uiHelper.onSaveInstanceState(outState);
 	  
+  }
+  
+  @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+      // only add the menu when the selection fragment is showing
+      if (fragments[SELECTION].isVisible()) {
+    	  System.out.println("Selection flag is on. displaying menu");
+          if (menu.size() == 0) {
+              settings = menu.add(R.string.settings);
+          }
+          return true;
+      } else {
+    	  System.out.println("else");
+          menu.clear();
+          settings = null;
+      }
+      return false;
+  }
+  
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+      if (item.equals(settings)) {
+          showFragment(SETTINGS, true);
+          return true;
+      }
+      return false;
   }
 }
