@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SelectionFragment extends Fragment implements OnClickListener{
@@ -24,6 +25,7 @@ public class SelectionFragment extends Fragment implements OnClickListener{
 	private TextView userNameView;
 	private TextView dishesCookedView;
 	private TextView addNewView;
+	private ImageView badgeView;
 
 	
 	
@@ -40,6 +42,9 @@ public class SelectionFragment extends Fragment implements OnClickListener{
 	 profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
 	 profilePictureView.setCropped(true);
 	 
+	badgeView = (ImageView) view.findViewById(R.id.badgeImage);
+	badgeView.setImageResource(R.drawable.star);
+
 
      Button b = (Button) view.findViewById(R.id.timeline);
      b.setOnClickListener(this);

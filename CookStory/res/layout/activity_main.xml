@@ -5,10 +5,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    
     <fragment android:name="com.cookstory.SelectionFragment"
         android:id="@+id/selectionFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
     <fragment android:name="com.cookstory.SplashFragment"
         android:id="@+id/splashFragment"
         android:layout_width="match_parent"
@@ -17,6 +19,7 @@
           android:id="@+id/userSettingsFragment"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
+    
 
 
 </LinearLayout>

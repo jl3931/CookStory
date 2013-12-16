@@ -1,28 +1,41 @@
 package com.cookstory;
 
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.ProfilePictureView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.app.Activity;
-import android.content.Intent;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.facebook.*;
-import com.facebook.model.*;
 
-public class MainActivity extends FragmentActivity {
-  
-	private static final int SPLASH = 0;
-	private static final int SELECTION = 1;
-	private static final int SETTINGS = 2;
-	private static final int FRAGMENT_COUNT = SETTINGS + 1;
+public class AddDishActivity extends FragmentActivity{
+
+
+	  
+	private static final int ADD_DISH = 0;
+	private static final int SPLASH = 1; 
 	private boolean isResumed = false;
+	
+	private static final int FRAGMENT_COUNT = SPLASH + 1;
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
-	private MenuItem settings;
+
 	
 	
   @Override
@@ -31,13 +44,11 @@ public class MainActivity extends FragmentActivity {
     uiHelper = new UiLifecycleHelper(this, callback);
     uiHelper.onCreate(savedInstanceState);
     
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_add_dish);
     
     FragmentManager fm = getSupportFragmentManager();
-    fragments[SPLASH] =fm.findFragmentById(R.id.splashFragment);
-    fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
-    fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
-    
+    fragments[ADD_DISH] =fm.findFragmentById(R.id.addDishFragment);
+
     
     
     FragmentTransaction transaction = fm.beginTransaction();
@@ -85,6 +96,7 @@ public class MainActivity extends FragmentActivity {
 	  isResumed = false;
   }
   
+	  
   private void onSessionStateChange(Session session, SessionState state, Exception exception)
   {
 	  if (isResumed){
@@ -97,7 +109,7 @@ public class MainActivity extends FragmentActivity {
 		  }
 		  
 		  if (state.isOpened()){
-			  showFragment(SELECTION, false);
+			  showFragment(ADD_DISH, false);
 		  }
 		  else if (state.isClosed()){
 			  showFragment(SPLASH, false);
@@ -108,6 +120,7 @@ public class MainActivity extends FragmentActivity {
 
 	  
   }
+
   
   @Override
   
@@ -116,7 +129,7 @@ public class MainActivity extends FragmentActivity {
 	  Session session = Session.getActiveSession();
 	  
 	  if (session !=null && session.isOpened()){
-		  showFragment(SELECTION, false);
+		  showFragment(ADD_DISH, false);
 	  }
 	  else{
 		  showFragment(SPLASH, false);
@@ -152,34 +165,8 @@ public class MainActivity extends FragmentActivity {
 	  
   }
   
-  @Override
-  public boolean onPrepareOptionsMenu(Menu menu) {
-      // only add the menu when the selection fragment is showing
-      if (fragments[SELECTION].isVisible()) {
-          if (menu.size() == 0) {
-              settings = menu.add(R.string.settings);
-          }
-          return true;
-      } else {
-          menu.clear();
-          settings = null;
-      }
-      return false;
-  }
-  
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-      if (item.equals(settings)) {
-          showFragment(SETTINGS, true);
-          return true;
-      }
-      return false;
-  }
-  
-  public void addDish(View view) 
-  {
-      Intent intent = new Intent(MainActivity.this, AddDishActivity.class);
-      startActivity(intent);
-  }
 
+
+  
+ 
 }
