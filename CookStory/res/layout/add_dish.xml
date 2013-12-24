@@ -6,12 +6,12 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
     
-    <EditText 
+    <TextView
         android:id="@+id/title"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="title_from_previous_page"
+        android:textSize="28sp"
       />
     
     <TextView 
@@ -38,24 +38,27 @@
         android:layout_marginTop="20dp"
         android:textSize="28sp"
         />
-    <ImageView 
+    <ImageButton
         android:id="@+id/dishImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:src="@drawable/dish"
+        android:onClick="clickPicture"
        />
+        
 <LinearLayout 
     android:id="@+id/addCancelButtons" 
     android:layout_height="wrap_content" 
     android:layout_width="fill_parent" 
-    android:layout_margin="20dp"
-    android:layout_alignParentBottom="true">
-
+    android:layout_margin="20dp">
+  
     <Button
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_marginLeft="30dp"
         android:layout_weight="1"
+        android:onClick="submitDish"
         android:text="@string/button_add" />
     
      <Button
@@ -64,6 +67,7 @@
          android:layout_gravity="right"
          android:layout_marginRight="30dp"
          android:layout_weight="1"
+         android:onClick="cancelBack"
          android:text="@string/button_cancel" />
      
      </LinearLayout>

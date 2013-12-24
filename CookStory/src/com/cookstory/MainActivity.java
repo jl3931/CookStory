@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -23,7 +24,7 @@ public class MainActivity extends FragmentActivity {
 	private boolean isResumed = false;
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 	private MenuItem settings;
-	
+	public final static String ADD_DISH_TITLE = "com.example.myfirstapp.MESSAGE";
 	
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends FragmentActivity {
     fragments[SPLASH] =fm.findFragmentById(R.id.splashFragment);
     fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
     fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
+
     
     
     
@@ -179,7 +181,11 @@ public class MainActivity extends FragmentActivity {
   public void addDish(View view) 
   {
       Intent intent = new Intent(MainActivity.this, AddDishActivity.class);
+      EditText editText = (EditText) findViewById(R.id.edit_name);
+      String message = editText.getText().toString();
+      intent.putExtra(ADD_DISH_TITLE, message);
       startActivity(intent);
+      
   }
 
 }
